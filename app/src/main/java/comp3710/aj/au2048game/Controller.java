@@ -24,7 +24,7 @@ public class Controller {
 
 
     }
-    //It would be a miracle if there were no out of bounds here so probably will fuck some shit up
+    //It would be a miracle if there were no out of bounds here
     public void shiftRight(){
         boolean changed = false;
         for(int i=0; i<4; i++) // row loop
