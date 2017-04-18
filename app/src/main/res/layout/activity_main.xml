@@ -6,45 +6,30 @@
     android:layout_height="match_parent"
     tools:context="comp3710.aj.au2048game.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
     <RelativeLayout
-        android:layout_marginTop="55dp"
         android:layout_width="match_parent"
-        android:layout_height="512dp">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/scoreText"
             android:layout_width="50sp"
             android:layout_height="20sp"
-            android:background="@drawable/rect"
-            android:text="@string/score"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
             android:layout_toStartOf="@+id/scoreValue"
-            android:layout_marginTop="20dp" />
+            android:background="@drawable/rect"
+            android:text="@string/score" />
 
         <TextView
             android:id="@+id/scoreValue"
             android:layout_width="115sp"
             android:layout_height="20sp"
-            android:background="@drawable/rect"
-            android:text="@string/zero"
-            android:textAlignment="textEnd"
             android:layout_alignBaseline="@+id/scoreText"
             android:layout_alignBottom="@+id/scoreText"
-            android:layout_alignEnd="@+id/rightArrow" />
+            android:layout_alignEnd="@+id/rightArrow"
+            android:background="@drawable/rect"
+            android:text="@string/zero"
+            android:textAlignment="textEnd" />
 
         <ImageButton
             android:id="@+id/upArrow"
@@ -54,66 +39,63 @@
             android:layout_toStartOf="@+id/rightArrow"
             android:background="@android:color/transparent"
             android:contentDescription="@string/up_arrow"
-            android:src="@drawable/up_arrow"
-            android:onClick="UpClick"/>
+            android:onClick="UpClick"
+            android:src="@drawable/up_arrow" />
 
         <ImageButton
             android:id="@+id/downArrow"
             android:layout_width="@dimen/button_dim"
             android:layout_height="@dimen/button_dim"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/down_arrow"
-            android:src="@drawable/down_arrow"
             android:layout_below="@+id/leftArrow"
             android:layout_centerHorizontal="true"
-            android:onClick="DownClick"/>
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/down_arrow"
+            android:onClick="DownClick"
+            android:src="@drawable/down_arrow" />
 
         <ImageButton
             android:id="@+id/leftArrow"
             android:layout_width="@dimen/button_dim"
             android:layout_height="@dimen/button_dim"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/left_arrow"
-            android:src="@drawable/left_arrow"
             android:layout_below="@+id/upArrow"
             android:layout_toStartOf="@+id/downArrow"
-            android:onClick="LeftClick"/>
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/left_arrow"
+            android:onClick="LeftClick"
+            android:src="@drawable/left_arrow" />
 
         <ImageButton
             android:id="@+id/rightArrow"
             android:layout_width="@dimen/button_dim"
             android:layout_height="@dimen/button_dim"
+            android:layout_above="@+id/restartButton"
             android:layout_marginBottom="95dp"
+            android:layout_toEndOf="@+id/downArrow"
             android:background="@android:color/transparent"
             android:contentDescription="@string/right_arrow"
-            android:src="@drawable/right_arrow"
-            android:layout_above="@+id/restartButton"
-            android:layout_toEndOf="@+id/downArrow"
-            android:onClick="RightClick"/>
+            android:onClick="RightClick"
+            android:src="@drawable/right_arrow" />
 
         <ImageButton
             android:id="@+id/restartButton"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="41dp"
             android:contentDescription="@string/restart_game_button"
+            android:onClick="ResetClick"
             android:src="@drawable/restart_button"
-            android:onClick="ResetClick"/>
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
 
         <fragment
-            android:id="@+id/boardFragment"
+            android:id="@+id/fragment"
             android:name="comp3710.aj.au2048game.MainActivityFragment"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_above="@+id/upArrow"
-            android:layout_alignEnd="@+id/scoreValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignStart="@+id/scoreText"
             android:layout_below="@+id/scoreText"
-            android:layout_marginTop="24dp"
-            tools:layout="@layout/boardFragment_main" />
+            android:layout_marginTop="42dp"
+            tools:layout="@layout/fragment_main" />
 
     </RelativeLayout>
 

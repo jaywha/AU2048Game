@@ -3,4 +3,11 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <view
+        class="comp3710.aj.au2048game.BoardView"
+        android:id="@+id/board"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_margin="110dp"
+        />
 </LinearLayout>
