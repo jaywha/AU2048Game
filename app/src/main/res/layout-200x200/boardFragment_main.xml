@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/board"
+    android:layout_width="160dp"
+    android:layout_height="160dp"
+    android:columnCount="4"
+    android:rowCount="4">
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="0"
+        android:layout_row="0" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="1"
+        android:layout_row="0" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="2"
+        android:layout_row="0" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="3"
+        android:layout_row="0" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="0"
+        android:layout_row="1" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="1"
+        android:layout_row="1" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="2"
+        android:layout_row="1" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="3"
+        android:layout_row="1" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="0"
+        android:layout_row="2" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="1"
+        android:layout_row="2" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="2"
+        android:layout_row="2" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="3"
+        android:layout_row="2" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="0"
+        android:layout_row="3" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="1"
+        android:layout_row="3" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="2"
+        android:layout_row="3" />
+
+    <ImageSwitcher
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
+        android:layout_column="3"
+        android:layout_row="3" />
+
+</GridLayout>
