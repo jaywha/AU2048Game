@@ -20,14 +20,83 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        <TextView
+            android:id="@+id/scoreText"
+            android:layout_width="90sp"
+            android:layout_height="20sp"
+            android:layout_alignBaseline="@+id/scoreValue"
+            android:layout_alignBottom="@+id/scoreValue"
+            android:layout_alignStart="@+id/leftArrow"
+            android:background="@drawable/rect"
+            android:text="@string/score" />
+
+        <TextView
+            android:id="@+id/scoreValue"
+            android:layout_width="90sp"
+            android:layout_height="20sp"
+            android:layout_alignEnd="@+id/rightArrow"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="57dp"
+            android:background="@drawable/rect"
+            android:text="@string/zero"
+            android:textAlignment="textEnd" />
+
+        <ImageButton
+            android:id="@+id/upArrow"
+            android:layout_width="@dimen/button_dim"
+            android:layout_height="@dimen/button_dim"
+            android:layout_above="@+id/rightArrow"
+            android:layout_toStartOf="@+id/rightArrow"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/up_arrow"
+            android:src="@drawable/up_arrow" />
+
+        <ImageButton
+            android:id="@+id/downArrow"
+            android:layout_width="@dimen/button_dim"
+            android:layout_height="@dimen/button_dim"
+            android:layout_below="@+id/leftArrow"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/down_arrow"
+            android:src="@drawable/down_arrow" />
+
+        <ImageButton
+            android:id="@+id/leftArrow"
+            android:layout_width="@dimen/button_dim"
+            android:layout_height="@dimen/button_dim"
+            android:layout_below="@+id/upArrow"
+            android:layout_toStartOf="@+id/upArrow"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/left_arrow"
+            android:src="@drawable/left_arrow" />
+
+        <ImageButton
+            android:id="@+id/rightArrow"
+            android:layout_width="@dimen/button_dim"
+            android:layout_height="@dimen/button_dim"
+            android:layout_above="@+id/restartButton"
+            android:layout_marginBottom="116dp"
+            android:layout_toEndOf="@+id/downArrow"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/right_arrow"
+            android:src="@drawable/right_arrow" />
+
+        <ImageButton
+            android:id="@+id/restartButton"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="41dp"
+            android:contentDescription="@string/restart_game_button"
+            android:src="@drawable/restart_button" />
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
