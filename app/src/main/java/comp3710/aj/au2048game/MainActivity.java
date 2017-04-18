@@ -23,14 +23,17 @@ import org.json.JSONException;
 public class MainActivity extends AppCompatActivity {
     Controller control;
     private Integer score;
+    private Integer highScore;
     private int[][] arr;
     TextView scoreText;
+    TextView highScoreText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         scoreText = (TextView)findViewById(R.id.scoreValue);
+        highScoreText = (TextView)findViewById(R.id.highScoreValue);
         arr = new int[4][4];
         control = new Controller(this);
 
@@ -59,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
             arr = new int[4][4];
         score = pref.getInt("score",0);
         scoreText.setText(score.toString());
+        highScore = pref.getInt("highScore", 0);
+        highScoreText.setText(highScore.toString());
         control.setArr(arr);
         control.setScore(score);
     }
@@ -73,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 arrBoard.add(arr[i][j]);
         JSONArray board = new JSONArray(arrBoard);
         edit.putString("board", board.toString());
+        edit.putInt("highScore", highScore);
         edit.apply();
 
     }
@@ -87,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
             arr = control.getArr();
             score = control.getScore();
             scoreText.setText(score.toString());
+            if(score>highScore)
+                highScore=score;
+            highScoreText.setText(highScore.toString());
             //draw onto fragment with updated array
             if(control.checkWin())
                 control.win();
@@ -101,6 +110,9 @@ public class MainActivity extends AppCompatActivity {
             arr = control.getArr();
             score = control.getScore();
             scoreText.setText(score.toString());
+            if(score>highScore)
+                highScore=score;
+            highScoreText.setText(highScore.toString());
             //draw onto fragment with updated array
             if(control.checkWin())
                 control.win();
@@ -115,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
             arr = control.getArr();
             score = control.getScore();
             scoreText.setText(score.toString());
+            if(score>highScore)
+                highScore=score;
+            highScoreText.setText(highScore.toString());
             //draw onto fragment with updated array
             if(control.checkWin())
                 control.win();
@@ -129,6 +144,9 @@ public class MainActivity extends AppCompatActivity {
             arr = control.getArr();
             score = control.getScore();
             scoreText.setText(score.toString());
+            if(score>highScore)
+                highScore=score;
+            highScoreText.setText(highScore.toString());
             //draw onto fragment with updated array
             if(control.checkWin())
                 control.win();

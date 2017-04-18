@@ -97,6 +97,27 @@
             android:layout_marginTop="42dp"
             tools:layout="@layout/fragment_main" />
 
+        <TextView
+            android:id="@+id/highScoreText"
+            android:layout_width="50sp"
+            android:layout_height="20sp"
+            android:layout_marginTop="20dp"
+            android:layout_toStartOf="@+id/highScoreValue"
+            android:background="@drawable/rect"
+            android:text="@string/high_score"
+            android:layout_alignTop="@+id/scoreText" />
+
+        <TextView
+            android:id="@+id/highScoreValue"
+            android:layout_width="115sp"
+            android:layout_height="20sp"
+            android:layout_alignBaseline="@+id/highScoreText"
+            android:layout_alignBottom="@+id/highScoreText"
+            android:layout_alignEnd="@+id/rightArrow"
+            android:background="@drawable/rect"
+            android:text="@string/zero"
+            android:textAlignment="textEnd" />
+
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
