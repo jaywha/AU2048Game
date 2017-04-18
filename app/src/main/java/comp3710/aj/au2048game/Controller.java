@@ -24,120 +24,135 @@ public class Controller {
 
 
     }
+    public int[][] getArr(){
+        return arr;
+    }
+    public int getScore(){
+        return score;
+    }
     //It would be a miracle if there were no out of bounds here
     public void shiftRight(){
         boolean changed = false;
-        for(int i=0; i<4; i++) // row loop
-        {
-            for(int j = 2; j>=0; j--){ // column loop
-                if(arr[i][j] != 0 ){
-                    if(arr[i][j+1] == 0){
-                        arr[i][j+1]=arr[i][j];
-                        arr[i][j]=0;
-                        changed = true;
-                    }
-                    else if(arr[i][j] == arr[i][j+1]){
-                        arr[i][j+1] *=2;
-                        arr[i][j]=0;
-                        changed = true;
-                        score+=arr[i][j+1];
+        for(int iterate = 0; iterate<3; iterate++) { // need to do shifts 3 times to move everything all the way
+            for (int i = 0; i < 4; i++) // row loop
+            {
+                for (int j = 2; j >= 0; j--) { // column loop
+                    if (arr[i][j] != 0) {
+                        if (arr[i][j + 1] == 0) {
+                            arr[i][j + 1] = arr[i][j];
+                            arr[i][j] = 0;
+                            changed = true;
+                        } else if (arr[i][j] == arr[i][j + 1]) {
+                            arr[i][j + 1] *= 2;
+                            arr[i][j] = 0;
+                            changed = true;
+                            score += arr[i][j + 1];
+                        }
                     }
                 }
-            }
-            if(changed){
-                addNewNumber();
-                if(noMovesPossible())
-                    gameOver();
-            }
 
+
+            }
+        }
+        if(changed){
+            addNewNumber();
+            if(noMovesPossible())
+                gameOver();
         }
 
 
     }
     public void shiftLeft(){
         boolean changed = false;
-        for(int i=0; i<4; i++) // row loop
-        {
-            for(int j = 1; j<4; j++){ // column loop
-                if(arr[i][j] != 0 ){
-                    if(arr[i][j-1] == 0){
-                        arr[i][j-1]=arr[i][j];
-                        arr[i][j]=0;
-                        changed = true;
-                    }
-                    else if(arr[i][j] == arr[i][j-1]){
-                        arr[i][j-1] *=2;
-                        arr[i][j]=0;
-                        changed = true;
-                        score+=arr[i][j-1];
+        for(int iterate = 0; iterate<3; iterate++) { // need to do shifts 3 times to move everything all the way
+            for (int i = 0; i < 4; i++) // row loop
+            {
+                for (int j = 1; j < 4; j++) { // column loop
+                    if (arr[i][j] != 0) {
+                        if (arr[i][j - 1] == 0) {
+                            arr[i][j - 1] = arr[i][j];
+                            arr[i][j] = 0;
+                            changed = true;
+                        } else if (arr[i][j] == arr[i][j - 1]) {
+                            arr[i][j - 1] *= 2;
+                            arr[i][j] = 0;
+                            changed = true;
+                            score += arr[i][j - 1];
+                        }
                     }
                 }
-            }
-            if(changed){
-                addNewNumber();
-                if(noMovesPossible())
-                    gameOver();
-            }
 
+
+            }
+        }
+        if(changed){
+            addNewNumber();
+            if(noMovesPossible())
+                gameOver();
         }
 
 
     }
     public void shiftUp(){
         boolean changed = false;
-        for(int i=1; i<4; i++) // row loop
-        {
-            for(int j =0; j<4; j++){ // column loop
-                if(arr[i][j] != 0 ){
-                    if(arr[i-1][j] == 0){
-                        arr[i-1][j]=arr[i][j];
-                        arr[i][j]=0;
-                        changed = true;
-                    }
-                    else if(arr[i][j] == arr[i-1][j]){
-                        arr[i-1][j] *=2;
-                        arr[i][j]=0;
-                        changed = true;
-                        score+=arr[i-1][j];
+        for(int iterate = 0; iterate<3; iterate++) { // need to do shifts 3 times to move everything all the way
+            for (int i = 1; i < 4; i++) // row loop
+            {
+                for (int j = 0; j < 4; j++) { // column loop
+                    if (arr[i][j] != 0) {
+                        if (arr[i - 1][j] == 0) {
+                            arr[i - 1][j] = arr[i][j];
+                            arr[i][j] = 0;
+                            changed = true;
+                        } else if (arr[i][j] == arr[i - 1][j]) {
+                            arr[i - 1][j] *= 2;
+                            arr[i][j] = 0;
+                            changed = true;
+                            score += arr[i - 1][j];
+                        }
                     }
                 }
-            }
-            if(changed){
-                addNewNumber();
-                if(noMovesPossible())
-                    gameOver();
-            }
 
+
+            }
+        }
+        if(changed){
+            addNewNumber();
+            if(noMovesPossible())
+                gameOver();
         }
 
 
     }
     public void shiftDown(){
         boolean changed = false;
-        for(int i=2; i>=0; i--) // row loop
-        {
-            for(int j = 0; j<4; j++){ // column loop
-                if(arr[i][j] != 0 ){
-                    if(arr[i+1][j] == 0){
-                        arr[i+1][j]=arr[i][j];
-                        arr[i][j]=0;
-                        changed = true;
-                    }
-                    else if(arr[i][j] == arr[i+1][j]){
-                        arr[i+1][j] *=2;
-                        arr[i][j]=0;
-                        changed = true;
-                        score+=arr[i+1][j];
+        for(int iterate = 0; iterate<3; iterate++) { // need to do shifts 3 times to move everything all the way
+            for (int i = 2; i >= 0; i--) // row loop
+            {
+                for (int j = 0; j < 4; j++) { // column loop
+                    if (arr[i][j] != 0) {
+                        if (arr[i + 1][j] == 0) {
+                            arr[i + 1][j] = arr[i][j];
+                            arr[i][j] = 0;
+                            changed = true;
+                        } else if (arr[i][j] == arr[i + 1][j]) {
+                            arr[i + 1][j] *= 2;
+                            arr[i][j] = 0;
+                            changed = true;
+                            score += arr[i + 1][j];
+                        }
                     }
                 }
+
+
             }
-            if(changed){
+        }
+            if (changed) {
                 addNewNumber();
-                if(noMovesPossible())
+                if (noMovesPossible())
                     gameOver();
             }
 
-        }
 
 
     }
@@ -146,8 +161,8 @@ public class Controller {
         int current=0;
         ArrayList<Integer> empty;
         empty = new ArrayList<Integer>();
-        for(int i=0; i<3; i++)
-            for(int j=0; j<3; j++) {
+        for(int i=0; i<4; i++)
+            for(int j=0; j<4; j++) {
                 if (arr[i][j] == 0) {
                     empty.add(current);
                 }
