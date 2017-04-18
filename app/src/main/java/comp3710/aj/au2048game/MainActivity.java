@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         scoreText = (TextView)findViewById(R.id.scoreValue);
         arr = new int[4][4];
-        control = new Controller();
-        //arr = control.getArr();
+        control = new Controller(this);
+
 
         List<Integer> arrBoard = new ArrayList<>();
         SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(this);
@@ -88,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
             score = control.getScore();
             scoreText.setText(score.toString());
             //draw onto fragment with updated array
+            if(control.checkWin())
+                control.win();
+            if(control.noMovesPossible())
+                control.gameOver();
+
         }
     }
     public void DownClick(View v){
@@ -97,6 +102,11 @@ public class MainActivity extends AppCompatActivity {
             score = control.getScore();
             scoreText.setText(score.toString());
             //draw onto fragment with updated array
+            if(control.checkWin())
+                control.win();
+            if(control.noMovesPossible())
+                control.gameOver();
+
         }
     }
     public void LeftClick(View v){
@@ -106,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
             score = control.getScore();
             scoreText.setText(score.toString());
             //draw onto fragment with updated array
+            if(control.checkWin())
+                control.win();
+            if(control.noMovesPossible())
+                control.gameOver();
+
         }
     }
     public void RightClick(View v){
@@ -115,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
             score = control.getScore();
             scoreText.setText(score.toString());
             //draw onto fragment with updated array
+            if(control.checkWin())
+                control.win();
+            if(control.noMovesPossible())
+                control.gameOver();
+
         }
     }
     public void ResetClick(View v){

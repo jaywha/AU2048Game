@@ -1,5 +1,10 @@
 package comp3710.aj.au2048game;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,14 +19,15 @@ public class Controller {
     private int[][] arr;
     private int score;
     private Random rand;
+    Activity activity;
 
-    public Controller(){
+    public Controller(Context context){
         arr = new int[4][4];
         score = 0;
         rand = new Random();
         for(int i=0; i<2; i++)
             addNewNumber();
-
+        activity = (Activity) context;
 
     }
     public int[][] getArr(){
@@ -62,8 +68,7 @@ public class Controller {
         }
         if(changed){
             addNewNumber();
-            if(noMovesPossible())
-                gameOver();
+
         }
 
 
@@ -93,8 +98,7 @@ public class Controller {
         }
         if(changed){
             addNewNumber();
-            if(noMovesPossible())
-                gameOver();
+
         }
 
 
@@ -124,8 +128,7 @@ public class Controller {
         }
         if(changed){
             addNewNumber();
-            if(noMovesPossible())
-                gameOver();
+
         }
 
 
@@ -155,8 +158,7 @@ public class Controller {
         }
             if (changed) {
                 addNewNumber();
-                if (noMovesPossible())
-                    gameOver();
+
             }
 
 
@@ -231,12 +233,35 @@ public class Controller {
         return true; //only executes if no empty spaces exist and no adjacent tiles can merge
     }
     public void gameOver()  {
-        //display game over text or whatever
-        try {
-            sleep(5000); // display game over text for 5 seconds, then reset
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage("Game Over, Try Again!");
+        builder.setPositiveButton("Reset", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked reset button
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        reset();
+    }
+    public boolean checkWin(){
+        for(int i=0; i<4; i++)
+            for(int j=0; j<4; j++)
+                if(arr[i][j] == 2048)
+                    return true;
+        return false;
+    }
+    public void win(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage("You Win!");
+        builder.setPositiveButton("Reset", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked reset button
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
         reset();
     }
     public void reset(){
