@@ -21,29 +21,30 @@
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
+        android:layout_marginTop="55dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="512dp">
 
         <TextView
             android:id="@+id/scoreText"
-            android:layout_width="90sp"
+            android:layout_width="50sp"
             android:layout_height="20sp"
-            android:layout_alignBaseline="@+id/scoreValue"
-            android:layout_alignBottom="@+id/scoreValue"
-            android:layout_alignStart="@+id/leftArrow"
             android:background="@drawable/rect"
-            android:text="@string/score" />
+            android:text="@string/score"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/scoreValue"
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:id="@+id/scoreValue"
-            android:layout_width="90sp"
+            android:layout_width="115sp"
             android:layout_height="20sp"
-            android:layout_alignEnd="@+id/rightArrow"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="57dp"
             android:background="@drawable/rect"
             android:text="@string/zero"
-            android:textAlignment="textEnd" />
+            android:textAlignment="textEnd"
+            android:layout_alignBaseline="@+id/scoreText"
+            android:layout_alignBottom="@+id/scoreText"
+            android:layout_alignEnd="@+id/rightArrow" />
 
         <ImageButton
             android:id="@+id/upArrow"
@@ -53,42 +54,38 @@
             android:layout_toStartOf="@+id/rightArrow"
             android:background="@android:color/transparent"
             android:contentDescription="@string/up_arrow"
-            android:src="@drawable/up_arrow"
-            android:onClick="UpClick"/>
+            android:src="@drawable/up_arrow" />
 
         <ImageButton
             android:id="@+id/downArrow"
             android:layout_width="@dimen/button_dim"
             android:layout_height="@dimen/button_dim"
-            android:layout_below="@+id/leftArrow"
-            android:layout_centerHorizontal="true"
             android:background="@android:color/transparent"
             android:contentDescription="@string/down_arrow"
             android:src="@drawable/down_arrow"
-            android:onClick="DownClick"/>
+            android:layout_below="@+id/leftArrow"
+            android:layout_centerHorizontal="true" />
 
         <ImageButton
             android:id="@+id/leftArrow"
             android:layout_width="@dimen/button_dim"
             android:layout_height="@dimen/button_dim"
-            android:layout_below="@+id/upArrow"
-            android:layout_toStartOf="@+id/upArrow"
             android:background="@android:color/transparent"
             android:contentDescription="@string/left_arrow"
             android:src="@drawable/left_arrow"
-            android:onClick="LeftClick"/>
+            android:layout_below="@+id/upArrow"
+            android:layout_toStartOf="@+id/downArrow" />
 
         <ImageButton
             android:id="@+id/rightArrow"
             android:layout_width="@dimen/button_dim"
             android:layout_height="@dimen/button_dim"
-            android:layout_above="@+id/restartButton"
-            android:layout_marginBottom="116dp"
-            android:layout_toEndOf="@+id/downArrow"
+            android:layout_marginBottom="95dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/right_arrow"
             android:src="@drawable/right_arrow"
-            android:onClick="RightClick"/>
+            android:layout_above="@+id/restartButton"
+            android:layout_toEndOf="@+id/downArrow" />
 
         <ImageButton
             android:id="@+id/restartButton"
@@ -99,8 +96,19 @@
             android:layout_alignParentStart="true"
             android:layout_marginBottom="41dp"
             android:contentDescription="@string/restart_game_button"
-            android:src="@drawable/restart_button"
-            android:onClick="ResetClick"/>
+            android:src="@drawable/restart_button" />
+
+        <fragment
+            android:id="@+id/boardFragment"
+            android:name="comp3710.aj.au2048game.MainActivityFragment"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_above="@+id/upArrow"
+            android:layout_alignEnd="@+id/scoreValue"
+            android:layout_alignStart="@+id/scoreText"
+            android:layout_below="@+id/scoreText"
+            android:layout_marginTop="24dp"
+            tools:layout="@layout/boardFragment_main" />
 
     </RelativeLayout>
 
