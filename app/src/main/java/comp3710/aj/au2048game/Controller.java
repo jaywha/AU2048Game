@@ -30,6 +30,12 @@ public class Controller {
     public int getScore(){
         return score;
     }
+    public void setArr(int[][] param){
+        arr = param;
+    }
+    public void setScore(int param){
+        score = param;
+    }
     //It would be a miracle if there were no out of bounds here
     public void shiftRight(){
         boolean changed = false;
@@ -211,6 +217,10 @@ public class Controller {
                             continue;
                         else
                         if(arr[i][j] == arr[i+1][j])
+                            return false;
+                    }
+                    else{
+                        if(arr[i][j]==arr[i][j+1] || arr[i][j] == arr[i+1][j])
                             return false;
                     }
                 }
