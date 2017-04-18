@@ -54,7 +54,8 @@
             android:layout_toStartOf="@+id/rightArrow"
             android:background="@android:color/transparent"
             android:contentDescription="@string/up_arrow"
-            android:src="@drawable/up_arrow" />
+            android:src="@drawable/up_arrow"
+            android:onClick="UpClick"/>
 
         <ImageButton
             android:id="@+id/downArrow"
@@ -64,7 +65,8 @@
             android:contentDescription="@string/down_arrow"
             android:src="@drawable/down_arrow"
             android:layout_below="@+id/leftArrow"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:onClick="DownClick"/>
 
         <ImageButton
             android:id="@+id/leftArrow"
@@ -74,7 +76,8 @@
             android:contentDescription="@string/left_arrow"
             android:src="@drawable/left_arrow"
             android:layout_below="@+id/upArrow"
-            android:layout_toStartOf="@+id/downArrow" />
+            android:layout_toStartOf="@+id/downArrow"
+            android:onClick="LeftClick"/>
 
         <ImageButton
             android:id="@+id/rightArrow"
@@ -85,7 +88,8 @@
             android:contentDescription="@string/right_arrow"
             android:src="@drawable/right_arrow"
             android:layout_above="@+id/restartButton"
-            android:layout_toEndOf="@+id/downArrow" />
+            android:layout_toEndOf="@+id/downArrow"
+            android:onClick="RightClick"/>
 
         <ImageButton
             android:id="@+id/restartButton"
@@ -96,7 +100,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginBottom="41dp"
             android:contentDescription="@string/restart_game_button"
-            android:src="@drawable/restart_button" />
+            android:src="@drawable/restart_button"
+            android:onClick="ResetClick"/>
 
         <fragment
             android:id="@+id/boardFragment"
