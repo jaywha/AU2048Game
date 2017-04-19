@@ -6,116 +6,132 @@
     android:columnCount="4"
     android:rowCount="4">
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="0"
         android:layout_row="0"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_0"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="1"
         android:layout_row="0"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_1"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="2"
         android:layout_row="0"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_2"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="3"
         android:layout_row="0"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_3"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="0"
         android:layout_row="1"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_4"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="1"
         android:layout_row="1"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_5"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="2"
         android:layout_row="1"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_6"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="3"
         android:layout_row="1"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_7"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="0"
         android:layout_row="2"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_8"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="1"
         android:layout_row="2"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_9"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="2"
         android:layout_row="2"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_10"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="3"
         android:layout_row="2"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_11"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="0"
         android:layout_row="3"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_12"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="1"
         android:layout_row="3"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_13"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="2"
         android:layout_row="3"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_14"/>
 
-    <ImageSwitcher
+    <ImageView
         android:layout_width="@dimen/cell_size"
         android:layout_height="@dimen/cell_size"
         android:layout_column="3"
         android:layout_row="3"
-        android:background="@drawable/rect"/>
+        android:background="@drawable/rect"
+        android:id="@+id/tile_15"/>
 
 </GridLayout>

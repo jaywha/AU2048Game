@@ -21,12 +21,10 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onPause(){
         super.onPause();
-        //TODO: Stop Game
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //TODO: Release resources
     }
 }
