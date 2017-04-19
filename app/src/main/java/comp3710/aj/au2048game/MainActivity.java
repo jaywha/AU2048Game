@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         control.setArr(arr);
         control.setScore(score);
     }
+
+
+
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(this);

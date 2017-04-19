@@ -90,8 +90,8 @@
         <fragment
             android:id="@+id/fragment"
             android:name="comp3710.aj.au2048game.MainActivityFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_alignStart="@+id/scoreText"
             android:layout_below="@+id/scoreText"
             android:layout_marginTop="42dp"
@@ -100,17 +100,17 @@
         <TextView
             android:id="@+id/highScoreText"
             android:layout_width="50sp"
-            android:layout_height="20sp"
+            android:layout_height="30sp"
+            android:layout_alignTop="@+id/scoreText"
             android:layout_marginTop="20dp"
             android:layout_toStartOf="@+id/highScoreValue"
             android:background="@drawable/rect"
-            android:text="@string/high_score"
-            android:layout_alignTop="@+id/scoreText" />
+            android:text="@string/high_score" />
 
         <TextView
             android:id="@+id/highScoreValue"
             android:layout_width="115sp"
-            android:layout_height="20sp"
+            android:layout_height="30sp"
             android:layout_alignBaseline="@+id/highScoreText"
             android:layout_alignBottom="@+id/highScoreText"
             android:layout_alignEnd="@+id/rightArrow"
