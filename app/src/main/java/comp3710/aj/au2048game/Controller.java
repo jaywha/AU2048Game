@@ -20,6 +20,7 @@ public class Controller {
     private int score;
     private Random rand;
     Activity activity;
+    private boolean wantsToContinue = true;
 
     public Controller(Context context){
         arr = new int[4][4];
@@ -247,26 +248,36 @@ public class Controller {
     public boolean checkWin(){
         for(int i=0; i<4; i++)
             for(int j=0; j<4; j++)
-                if(arr[i][j] == 2048)
+                if(arr[i][j] == 2048) {
+
+                    wantsToContinue = false;
                     return true;
+                }
         return false;
     }
-    public void win(){
+    public boolean win(){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage("You Win!");
         builder.setPositiveButton("Reset", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked reset button
+                reset();// User clicked reset button
+            }
+        });
+        builder.setNegativeButton("Continue", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked continue button, continue the game
             }
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+        return wantsToContinue;
 
-        reset();
+
     }
     public void reset(){
         arr = new int[4][4];
         score = 0;
+        wantsToContinue = true;
         for(int i=0; i<2; i++)
             addNewNumber();
     }
