@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private int[][] arr;
     TextView scoreText;
     TextView highScoreText;
+    private boolean past2048 = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             arr = new int[4][4];
         score = pref.getInt("score",0);
         scoreText.setText(score.toString());
+        past2048 = pref.getBoolean("past2048", true);
         highScore = pref.getInt("highScore", 0);
         highScoreText.setText(highScore.toString());
         control.setArr(arr);
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         JSONArray board = new JSONArray(arrBoard);
         edit.putString("board", board.toString());
         edit.putInt("highScore", highScore);
+        edit.putBoolean("past2048", past2048);
         edit.apply();
 
     }
@@ -100,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
                 highScore=score;
             highScoreText.setText(highScore.toString());
             //draw onto fragment with updated array
-            if(control.checkWin())
-                control.win();
+            if(control.checkWin() && past2048)
+                 past2048 = control.win();
             if(control.noMovesPossible())
                 control.gameOver();
 
@@ -117,8 +120,8 @@ public class MainActivity extends AppCompatActivity {
                 highScore=score;
             highScoreText.setText(highScore.toString());
             //draw onto fragment with updated array
-            if(control.checkWin())
-                control.win();
+            if(control.checkWin() && past2048)
+                past2048 = control.win();
             if(control.noMovesPossible())
                 control.gameOver();
 
@@ -134,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
                 highScore=score;
             highScoreText.setText(highScore.toString());
             //draw onto fragment with updated array
-            if(control.checkWin())
-                control.win();
+            if(control.checkWin() && past2048)
+                past2048 = control.win();
             if(control.noMovesPossible())
                 control.gameOver();
 
@@ -151,8 +154,8 @@ public class MainActivity extends AppCompatActivity {
                 highScore=score;
             highScoreText.setText(highScore.toString());
             //draw onto fragment with updated array
-            if(control.checkWin())
-                control.win();
+            if(control.checkWin() && past2048)
+               past2048 = control.win();
             if(control.noMovesPossible())
                 control.gameOver();
 
@@ -163,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
             control.reset();
             arr = control.getArr();
             score = 0;
+            past2048 = true;
             scoreText.setText(score.toString());
             //draw onto fragment with updated array
         }
