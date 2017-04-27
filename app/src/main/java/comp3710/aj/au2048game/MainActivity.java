@@ -1,10 +1,13 @@
 package comp3710.aj.au2048game;
 
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -93,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
     TextView scoreText;
     TextView highScoreText;
     private boolean past2048 = true;
+    private Animation shift_anime;
+    private MediaPlayer move_sound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
         highScoreText.setText(highScore.toString());
         edit.apply();
         control.setArr(arr);
-        setArrView(arr, arrView);
+        move_sound =  MediaPlayer.create(this, R.raw.pop);
+        setArrView(arr, arrView, false);
         control.setScore(score);
     }
 
@@ -156,46 +162,58 @@ public class MainActivity extends AppCompatActivity {
         arrView[15] = (ImageView)findViewById(R.id.tile_15);
     }
 
-    private void setArrView(int[][] arr, ImageView[] arrView) {
+    private void setArrView(int[][] arr, ImageView[] arrView, boolean applyAnime) {
         setupArrView(arrView);
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
                 switch(arr[i][j]) {
                     case 2:
                         arrView[4*i+j].setImageResource(R.drawable.tile2);
+                        if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
                         break;
                     case 4:
                         arrView[4*i+j].setImageResource(R.drawable.tile4);
+                        if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
                         break;
                     case 8:
                         arrView[4*i+j].setImageResource(R.drawable.tile8);
+                        if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
                         break;
                     case 16:
                         arrView[4*i+j].setImageResource(R.drawable.tile16);
+                        if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
                         break;
                     case 32:
                         arrView[4*i+j].setImageResource(R.drawable.tile32);
+                        if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
                         break;
                     case 64:
                         arrView[4*i+j].setImageResource(R.drawable.tile64);
+                        if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
                         break;
                     case 128:
                         arrView[4*i+j].setImageResource(R.drawable.tile128);
+                        if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
                         break;
                     case 256:
                         arrView[4*i+j].setImageResource(R.drawable.tile256);
+                        if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
                         break;
                     case 512:
                         arrView[4*i+j].setImageResource(R.drawable.tile512);
+                        if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
                         break;
                     case 1024:
                         arrView[4*i+j].setImageResource(R.drawable.tile1024);
+                        if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
                         break;
                     case 2048:
                         arrView[4*i+j].setImageResource(R.drawable.tile2048);
+                        if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
                         break;
                     case 4096:
                         arrView[4*i+j].setImageResource(R.drawable.tile4096);
+                        if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
                         break;
                     default:
                         arrView[4*i+j].setImageResource(R.drawable.rect);
@@ -221,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
         edit.putBoolean("past2048", past2048);
         edit.apply();
 
-        setArrView(arr, arrView);
+        setArrView(arr, arrView, false);
     }
 
     public void UpClick(View v){
@@ -241,7 +259,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        setArrView(arr, arrView);
+        shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_up);
+        move_sound.start();
+
+        setArrView(arr, arrView, true);
     }
     public void DownClick(View v){
         if(v.getId() == R.id.downArrow) {
@@ -260,7 +281,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        setArrView(arr, arrView);
+        shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_down);
+        move_sound.start();
+
+        setArrView(arr, arrView, true);
     }
     public void LeftClick(View v){
         if(v.getId() == R.id.leftArrow) {
@@ -279,7 +303,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        setArrView(arr, arrView);
+        shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_left);
+        move_sound.start();
+
+        setArrView(arr, arrView, true);
     }
     public void RightClick(View v){
         if(v.getId() == R.id.rightArrow) {
@@ -298,7 +325,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        setArrView(arr, arrView);
+        shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_right);
+
+        setArrView(arr, arrView, true);
+        move_sound.start();
     }
     public void ResetClick(View v){
         if(v.getId() == R.id.restartButton) {
@@ -310,6 +340,6 @@ public class MainActivity extends AppCompatActivity {
             //draw onto fragment with updated array
         }
 
-        setArrView(arr, arrView);
+        setArrView(arr, arrView, false);
     }
 }
