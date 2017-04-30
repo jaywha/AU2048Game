@@ -118,6 +118,15 @@
             android:text="@string/zero"
             android:textAlignment="textEnd" />
 
+        <Button
+            android:id="@+id/demoButton"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:onClick="DemoClick"
+            android:layout_below="@+id/downArrow"
+            android:layout_centerHorizontal="true"
+            android:text="Start Demo Mode" />
+
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

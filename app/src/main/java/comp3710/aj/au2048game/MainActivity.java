@@ -1,19 +1,24 @@
 package comp3710.aj.au2048game;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.view.MotionEvent;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import org.json.JSONArray;
 import org.json.JSONException;
-
+import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
     private boolean past2048 = true;
     private Animation shift_anime;
     private MediaPlayer move_sound;
+    private boolean demo;
+    private Random demoRand;
+    private Context context;
+    private GestureDetectorCompat detector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
         scoreText = (TextView)findViewById(R.id.scoreValue);
         highScoreText = (TextView)findViewById(R.id.highScoreValue);
         arr = new int[4][4];
+        demo =false;
+        context =this;
         control = new Controller(this);
 
 
@@ -142,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
         setArrView(arr, arrView, false);
         control.setScore(score);
     }
+
+
 
     private void setupArrView(ImageView[] arrView) {
         arrView[0] = (ImageView)findViewById(R.id.tile_0);
@@ -226,112 +239,156 @@ public class MainActivity extends AppCompatActivity {
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor edit = pref.edit();
-        edit.putInt("score", score);
-        List<Integer> arrBoard = new ArrayList<>();
-        for(int i=0; i<4; i++)
-            for(int j=0; j<4; j++)
-                arrBoard.add(arr[i][j]);
-        JSONArray board = new JSONArray(arrBoard);
-        edit.putString("board", board.toString());
-        edit.putInt("highScore", highScore);
-        edit.putBoolean("past2048", past2048);
-        edit.apply();
+        if(!demo) {
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor edit = pref.edit();
+            edit.putInt("score", score);
+            List<Integer> arrBoard = new ArrayList<>();
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    arrBoard.add(arr[i][j]);
+            JSONArray board = new JSONArray(arrBoard);
+            edit.putString("board", board.toString());
+            edit.putInt("highScore", highScore);
+            edit.putBoolean("past2048", past2048);
+            edit.apply();
 
-        setArrView(arr, arrView, false);
+            setArrView(arr, arrView, false);
+        }
     }
 
     public void UpClick(View v){
-        if(v.getId() == R.id.upArrow) {
+        if(v.getId() == R.id.upArrow ) {
             control.shiftUp();
             arr = control.getArr();
             score = control.getScore();
-            scoreText.setText(score.toString());
+            if(!demo)
+                scoreText.setText(score.toString());
             if(score>highScore)
                 highScore=score;
-            highScoreText.setText(highScore.toString());
+            if(!demo)
+                highScoreText.setText(highScore.toString());
             //draw onto fragment with updated array
-            if(control.checkWin() && past2048)
-                 past2048 = control.win();
-            if(control.noMovesPossible())
-                control.gameOver();
+            if(control.checkWin() && past2048) {
+                if(demo)
+                    demo=false;
+                else
+                    past2048 = control.win();
+            }
+            if(control.noMovesPossible()) {
+                if(demo)
+                    demo=false;
+                else
+                    control.gameOver();
+            }
 
         }
 
-        shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_up);
-        move_sound.start();
-
-        setArrView(arr, arrView, true);
+        if(!demo) {
+            shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_right);
+            setArrView(arr, arrView, true);
+            move_sound.start();
+        }
     }
     public void DownClick(View v){
-        if(v.getId() == R.id.downArrow) {
+        if(v.getId() == R.id.downArrow ) {
             control.shiftDown();
             arr = control.getArr();
             score = control.getScore();
-            scoreText.setText(score.toString());
+            if(!demo)
+                scoreText.setText(score.toString());
             if(score>highScore)
                 highScore=score;
-            highScoreText.setText(highScore.toString());
+            if(!demo)
+                highScoreText.setText(highScore.toString());
             //draw onto fragment with updated array
-            if(control.checkWin() && past2048)
-                past2048 = control.win();
-            if(control.noMovesPossible())
-                control.gameOver();
-
+            if(control.checkWin() && past2048) {
+                if(demo)
+                    demo=false;
+                else
+                    past2048 = control.win();
+            }
+            if(control.noMovesPossible()) {
+                if(demo)
+                    demo=false;
+                else
+                    control.gameOver();
+            }
         }
 
-        shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_down);
-        move_sound.start();
-
-        setArrView(arr, arrView, true);
+        if(!demo) {
+            shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_right);
+            setArrView(arr, arrView, true);
+            move_sound.start();
+        }
     }
     public void LeftClick(View v){
-        if(v.getId() == R.id.leftArrow) {
+        if(v.getId() == R.id.leftArrow ) {
             control.shiftLeft();
             arr = control.getArr();
             score = control.getScore();
-            scoreText.setText(score.toString());
+            if(!demo)
+                scoreText.setText(score.toString());
             if(score>highScore)
                 highScore=score;
-            highScoreText.setText(highScore.toString());
+            if(!demo)
+                highScoreText.setText(highScore.toString());
             //draw onto fragment with updated array
-            if(control.checkWin() && past2048)
-                past2048 = control.win();
-            if(control.noMovesPossible())
-                control.gameOver();
-
+            if(control.checkWin() && past2048) {
+                if(demo)
+                    demo=false;
+                else
+                    past2048 = control.win();
+            }
+            if(control.noMovesPossible()) {
+                if(demo)
+                    demo=false;
+                else
+                    control.gameOver();
+            }
         }
 
-        shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_left);
-        move_sound.start();
-
-        setArrView(arr, arrView, true);
+        if(!demo) {
+            shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_right);
+            setArrView(arr, arrView, true);
+            move_sound.start();
+        }
     }
     public void RightClick(View v){
-        if(v.getId() == R.id.rightArrow) {
+        if(v.getId() == R.id.rightArrow ) {
             control.shiftRight();
             arr = control.getArr();
             score = control.getScore();
-            scoreText.setText(score.toString());
+            if(!demo)
+                scoreText.setText(score.toString());
             if(score>highScore)
                 highScore=score;
-            highScoreText.setText(highScore.toString());
+            if(!demo)
+                highScoreText.setText(highScore.toString());
             //draw onto fragment with updated array
-            if(control.checkWin() && past2048)
-               past2048 = control.win();
-            if(control.noMovesPossible())
-                control.gameOver();
+            if(control.checkWin() && past2048) {
+                if(demo)
+                    demo=false;
+                else
+                    past2048 = control.win();
+            }
+            if(control.noMovesPossible()) {
+                if(demo)
+                    demo=false;
+                else
+                    control.gameOver();
+            }
 
         }
-
-        shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_right);
-
-        setArrView(arr, arrView, true);
-        move_sound.start();
+        if(!demo) {
+            shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_right);
+            setArrView(arr, arrView, true);
+            move_sound.start();
+        }
     }
     public void ResetClick(View v){
         if(v.getId() == R.id.restartButton) {
+            demo = false;
             control.reset();
             arr = control.getArr();
             score = 0;
@@ -342,4 +399,58 @@ public class MainActivity extends AppCompatActivity {
 
         setArrView(arr, arrView, false);
     }
+    public void DemoClick(View v){
+        if(v.getId() == R.id.demoButton && !demo){
+            new demo().execute("");
+        }
+    }
+    private class demo extends AsyncTask<String, Void, Void>{
+
+        @Override
+        protected Void doInBackground(String... params){
+
+                demoRand = new Random();
+                control.reset();
+                int direction;
+                demo=true;
+                while(demo) {
+                    direction = demoRand.nextInt(4);
+                    switch (direction) {
+                        case 0:
+                            UpClick(findViewById(R.id.upArrow));
+                            break;
+                        case 1:
+                            RightClick(findViewById(R.id.rightArrow));
+                            break;
+                        case 2:
+                            DownClick(findViewById(R.id.downArrow));
+                            break;
+                        case 3:
+                            LeftClick(findViewById(R.id.leftArrow));
+                            break;
+                        default:
+                            UpClick(findViewById(R.id.upArrow));
+                            break;
+                    }
+                    try {
+                        publishProgress();
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                demo = false;
+                control.reset();
+            return null;
+
+            }
+
+            @Override
+            protected void onProgressUpdate(Void...values){
+                shift_anime = AnimationUtils.loadAnimation(context, R.anim.shift_down);
+                move_sound.start();
+                setArrView(arr, arrView, true);
+            }
+        }
+
 }
