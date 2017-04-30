@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -92,7 +93,7 @@ import java.util.List;
  * @enduml
  * */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
     Controller control;
     private Integer score;
     private Integer highScore;
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean demo;
     private Random demoRand;
     private Context context;
-    private GestureDetectorCompat detector;
+    private GestureDetector detector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +119,28 @@ public class MainActivity extends AppCompatActivity {
         demo =false;
         context =this;
         control = new Controller(this);
+        detector = new GestureDetector(this,new SwipeListener(){
+
+            @Override
+            public boolean onSwipe(Direction direction){
+                if(direction == Direction.up)
+                    UpClick(findViewById(R.id.upArrow));
+                else if(direction == Direction.down)
+                    DownClick(findViewById(R.id.downArrow));
+                else if(direction == Direction.left)
+                    LeftClick(findViewById(R.id.leftArrow));
+                else if(direction == Direction.right)
+                    RightClick(findViewById(R.id.rightArrow));
+                return true;
+
+            }
+        });
+        View view = findViewById(R.id.fragment);
+        view.setOnTouchListener(this);
+        view = findViewById(android.R.id.content);
+        view.setOnTouchListener(this);
+
+
 
 
         List<Integer> arrBoard = new ArrayList<>();
@@ -152,6 +175,12 @@ public class MainActivity extends AppCompatActivity {
         move_sound =  MediaPlayer.create(this, R.raw.pop);
         setArrView(arr, arrView, false);
         control.setScore(score);
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event){
+        detector.onTouchEvent(event);
+        return true;
     }
 
 
