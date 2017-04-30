@@ -15,51 +15,35 @@ import java.util.Random;
 import static java.lang.Thread.sleep;
 
 
-public class Controller {
-    private int[][] arr;
-    private int score;
-    private Random rand;
-    Activity activity;
-    private boolean wantsToContinue = true;
+class Controller {
+    public Model data = new Model();
 
-    public Controller(Context context){
-        arr = new int[4][4];
-        score = 0;
-        rand = new Random();
+    Controller(Context context){
+        data.setArr(new int[4][4]);
+        data.setScore(0);
+        data.setRand(new Random());
         for(int i=0; i<2; i++)
             addNewNumber();
-        activity = (Activity) context;
+        data.setActivity((Activity) context);
+    }
 
-    }
-    public int[][] getArr(){
-        return arr;
-    }
-    public int getScore(){
-        return score;
-    }
-    public void setArr(int[][] param){
-        arr = param;
-    }
-    public void setScore(int param){
-        score = param;
-    }
     //It would be a miracle if there were no out of bounds here
-    public void shiftRight(){
+    void shiftRight(){
         boolean changed = false;
         for(int iterate = 0; iterate<3; iterate++) { // need to do shifts 3 times to move everything all the way
             for (int i = 0; i < 4; i++) // row loop
             {
                 for (int j = 2; j >= 0; j--) { // column loop
-                    if (arr[i][j] != 0) {
-                        if (arr[i][j + 1] == 0) {
-                            arr[i][j + 1] = arr[i][j];
-                            arr[i][j] = 0;
+                    if (data.getArr()[i][j] != 0) {
+                        if (data.getArr()[i][j + 1] == 0) {
+                            data.getArr()[i][j + 1] = data.getArr()[i][j];
+                            data.getArr()[i][j] = 0;
                             changed = true;
-                        } else if (arr[i][j] == arr[i][j + 1]) {
-                            arr[i][j + 1] *= 2;
-                            arr[i][j] = 0;
+                        } else if (data.getArr()[i][j] == data.getArr()[i][j + 1]) {
+                            data.getArr()[i][j + 1] *= 2;
+                            data.getArr()[i][j] = 0;
                             changed = true;
-                            score += arr[i][j + 1];
+                            data.setScore(data.getScore() + data.getArr()[i][j + 1]);
                         }
                     }
                 }
@@ -74,22 +58,22 @@ public class Controller {
 
 
     }
-    public void shiftLeft(){
+    void shiftLeft(){
         boolean changed = false;
         for(int iterate = 0; iterate<3; iterate++) { // need to do shifts 3 times to move everything all the way
             for (int i = 0; i < 4; i++) // row loop
             {
                 for (int j = 1; j < 4; j++) { // column loop
-                    if (arr[i][j] != 0) {
-                        if (arr[i][j - 1] == 0) {
-                            arr[i][j - 1] = arr[i][j];
-                            arr[i][j] = 0;
+                    if (data.getArr()[i][j] != 0) {
+                        if (data.getArr()[i][j - 1] == 0) {
+                            data.getArr()[i][j - 1] = data.getArr()[i][j];
+                            data.getArr()[i][j] = 0;
                             changed = true;
-                        } else if (arr[i][j] == arr[i][j - 1]) {
-                            arr[i][j - 1] *= 2;
-                            arr[i][j] = 0;
+                        } else if (data.getArr()[i][j] == data.getArr()[i][j - 1]) {
+                            data.getArr()[i][j - 1] *= 2;
+                            data.getArr()[i][j] = 0;
                             changed = true;
-                            score += arr[i][j - 1];
+                            data.setScore(data.getScore() + data.getArr()[i][j - 1]);
                         }
                     }
                 }
@@ -104,22 +88,22 @@ public class Controller {
 
 
     }
-    public void shiftUp(){
+    void shiftUp(){
         boolean changed = false;
         for(int iterate = 0; iterate<3; iterate++) { // need to do shifts 3 times to move everything all the way
             for (int i = 1; i < 4; i++) // row loop
             {
                 for (int j = 0; j < 4; j++) { // column loop
-                    if (arr[i][j] != 0) {
-                        if (arr[i - 1][j] == 0) {
-                            arr[i - 1][j] = arr[i][j];
-                            arr[i][j] = 0;
+                    if (data.getArr()[i][j] != 0) {
+                        if (data.getArr()[i - 1][j] == 0) {
+                            data.getArr()[i - 1][j] = data.getArr()[i][j];
+                            data.getArr()[i][j] = 0;
                             changed = true;
-                        } else if (arr[i][j] == arr[i - 1][j]) {
-                            arr[i - 1][j] *= 2;
-                            arr[i][j] = 0;
+                        } else if (data.getArr()[i][j] == data.getArr()[i - 1][j]) {
+                            data.getArr()[i - 1][j] *= 2;
+                            data.getArr()[i][j] = 0;
                             changed = true;
-                            score += arr[i - 1][j];
+                            data.setScore(data.getScore() + data.getArr()[i - 1][j]);
                         }
                     }
                 }
@@ -134,22 +118,22 @@ public class Controller {
 
 
     }
-    public void shiftDown(){
+    void shiftDown(){
         boolean changed = false;
         for(int iterate = 0; iterate<3; iterate++) { // need to do shifts 3 times to move everything all the way
             for (int i = 2; i >= 0; i--) // row loop
             {
                 for (int j = 0; j < 4; j++) { // column loop
-                    if (arr[i][j] != 0) {
-                        if (arr[i + 1][j] == 0) {
-                            arr[i + 1][j] = arr[i][j];
-                            arr[i][j] = 0;
+                    if (data.getArr()[i][j] != 0) {
+                        if (data.getArr()[i + 1][j] == 0) {
+                            data.getArr()[i + 1][j] = data.getArr()[i][j];
+                            data.getArr()[i][j] = 0;
                             changed = true;
-                        } else if (arr[i][j] == arr[i + 1][j]) {
-                            arr[i + 1][j] *= 2;
-                            arr[i][j] = 0;
+                        } else if (data.getArr()[i][j] == data.getArr()[i + 1][j]) {
+                            data.getArr()[i + 1][j] *= 2;
+                            data.getArr()[i][j] = 0;
                             changed = true;
-                            score += arr[i + 1][j];
+                            data.setScore(data.getScore() + data.getArr()[i + 1][j]);
                         }
                     }
                 }
@@ -166,35 +150,35 @@ public class Controller {
 
     }
 
-    public void addNewNumber(){
+    void addNewNumber(){
         int current=0;
         ArrayList<Integer> empty;
-        empty = new ArrayList<Integer>();
+        empty = new ArrayList<>();
         for(int i=0; i<4; i++)
             for(int j=0; j<4; j++) {
-                if (arr[i][j] == 0) {
+                if (data.getArr()[i][j] == 0) {
                     empty.add(current);
                 }
                 current++;
             }
         int randCheck;
-        int randEmpty = rand.nextInt(empty.size());
-        randCheck = rand.nextInt(100);
+        int randEmpty = data.getRand().nextInt(empty.size());
+        randCheck = data.getRand().nextInt(100);
 
         if (randCheck < 25) {
-            arr[(empty.get(randEmpty))/4][(empty.get(randEmpty)) % 4] = 4;
+            data.getArr()[(empty.get(randEmpty))/4][(empty.get(randEmpty)) % 4] = 4;
         } else {
-            arr[(empty.get(randEmpty))/4][(empty.get(randEmpty)) % 4] = 2;
+            data.getArr()[(empty.get(randEmpty))/4][(empty.get(randEmpty)) % 4] = 2;
         }
 
     }
-    public boolean noMovesPossible(){
+    boolean noMovesPossible(){
         int emptyCount=0;
         for(int i=0; i<4; i++) {
             if(emptyCount != 0)
                 break;
             for (int j = 0; j < 4; j++)
-                if (arr[i][j] == 0) {
+                if (data.getArr()[i][j] == 0) {
                     emptyCount++;
                     break;
                 }
@@ -211,7 +195,7 @@ public class Controller {
                         if(j==3)
                             continue;
                         else
-                        if(arr[i][j] == arr[i][j+1])
+                        if(data.getArr()[i][j] == data.getArr()[i][j+1])
                             return false;
 
                     }
@@ -219,11 +203,11 @@ public class Controller {
                         if(i==3)
                             continue;
                         else
-                        if(arr[i][j] == arr[i+1][j])
+                        if(data.getArr()[i][j] == data.getArr()[i+1][j])
                             return false;
                     }
                     else{
-                        if(arr[i][j]==arr[i][j+1] || arr[i][j] == arr[i+1][j])
+                        if(data.getArr()[i][j]==data.getArr()[i][j+1] || data.getArr()[i][j] == data.getArr()[i+1][j])
                             return false;
                     }
                 }
@@ -233,8 +217,8 @@ public class Controller {
         }
         return true; //only executes if no empty spaces exist and no adjacent tiles can merge
     }
-    public void gameOver()  {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+    void gameOver()  {
+        AlertDialog.Builder builder = new AlertDialog.Builder(data.getModelActivity());
         builder.setMessage("Game Over, Try Again!");
         builder.setPositiveButton("Reset", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -245,18 +229,18 @@ public class Controller {
         dialog.show();
         reset();
     }
-    public boolean checkWin(){
+    boolean checkWin(){
         for(int i=0; i<4; i++)
             for(int j=0; j<4; j++)
-                if(arr[i][j] == 2048) {
+                if(data.getArr()[i][j] == 2048) {
 
-                    wantsToContinue = false;
+                    data.setWantsToContinue(false);
                     return true;
                 }
         return false;
     }
-    public boolean win(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+    boolean win(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(data.getModelActivity());
         builder.setMessage("You Win!");
         builder.setPositiveButton("Reset", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -270,14 +254,14 @@ public class Controller {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-        return wantsToContinue;
+        return data.doesWantToContinue();
 
 
     }
-    public void reset(){
-        arr = new int[4][4];
-        score = 0;
-        wantsToContinue = true;
+    void reset(){
+        data.setArr(new int[4][4]);
+        data.setScore(0);
+        data.setWantsToContinue(true);
         for(int i=0; i<2; i++)
             addNewNumber();
     }

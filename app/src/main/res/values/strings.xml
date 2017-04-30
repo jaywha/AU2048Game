@@ -9,5 +9,5 @@
     <string name="right_arrow">the right arrow</string>
     <string name="restart">RESTART</string>
     <string name="restart_game_button">Restart Game button</string>
-    <string name="high_score">High Score:</string>
+    <string name="high_score">Highscore:</string>
 </resources>

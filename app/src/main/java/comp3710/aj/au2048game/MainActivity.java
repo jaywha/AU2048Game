@@ -171,10 +171,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         highScore = pref.getInt("highScore", 0);
         highScoreText.setText(highScore.toString());
         edit.apply();
-        control.setArr(arr);
+        control.data.setArr(arr);
         move_sound =  MediaPlayer.create(this, R.raw.pop);
         setArrView(arr, arrView, false);
-        control.setScore(score);
+        control.data.setScore(score);
     }
 
     @Override
@@ -205,6 +205,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     private void setArrView(int[][] arr, ImageView[] arrView, boolean applyAnime) {
+        if(shift_anime != null && shift_anime.isInitialized()) {
+            shift_anime.setDuration(3000);
+        }
         setupArrView(arrView);
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
@@ -289,8 +292,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     public void UpClick(View v){
         if(v.getId() == R.id.upArrow ) {
             control.shiftUp();
-            arr = control.getArr();
-            score = control.getScore();
+            arr = control.data.getArr();
+            score = control.data.getScore();
             if(!demo)
                 scoreText.setText(score.toString());
             if(score>highScore)
@@ -314,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         }
 
         if(!demo) {
-            shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_right);
+            shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_up);
             setArrView(arr, arrView, true);
             move_sound.start();
         }
@@ -322,8 +325,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     public void DownClick(View v){
         if(v.getId() == R.id.downArrow ) {
             control.shiftDown();
-            arr = control.getArr();
-            score = control.getScore();
+            arr = control.data.getArr();
+            score = control.data.getScore();
             if(!demo)
                 scoreText.setText(score.toString());
             if(score>highScore)
@@ -346,7 +349,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         }
 
         if(!demo) {
-            shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_right);
+            shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_down);
             setArrView(arr, arrView, true);
             move_sound.start();
         }
@@ -354,8 +357,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     public void LeftClick(View v){
         if(v.getId() == R.id.leftArrow ) {
             control.shiftLeft();
-            arr = control.getArr();
-            score = control.getScore();
+            arr = control.data.getArr();
+            score = control.data.getScore();
             if(!demo)
                 scoreText.setText(score.toString());
             if(score>highScore)
@@ -378,7 +381,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         }
 
         if(!demo) {
-            shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_right);
+            shift_anime = AnimationUtils.loadAnimation(this, R.anim.shift_left);
             setArrView(arr, arrView, true);
             move_sound.start();
         }
@@ -386,8 +389,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     public void RightClick(View v){
         if(v.getId() == R.id.rightArrow ) {
             control.shiftRight();
-            arr = control.getArr();
-            score = control.getScore();
+            arr = control.data.getArr();
+            score = control.data.getScore();
             if(!demo)
                 scoreText.setText(score.toString());
             if(score>highScore)
@@ -419,7 +422,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         if(v.getId() == R.id.restartButton) {
             demo = false;
             control.reset();
-            arr = control.getArr();
+            arr = control.data.getArr();
             score = 0;
             past2048 = true;
             scoreText.setText(score.toString());
@@ -447,18 +450,23 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     switch (direction) {
                         case 0:
                             UpClick(findViewById(R.id.upArrow));
+                            shift_anime = AnimationUtils.loadAnimation(context, R.anim.shift_up);
                             break;
                         case 1:
                             RightClick(findViewById(R.id.rightArrow));
+                            shift_anime = AnimationUtils.loadAnimation(context, R.anim.shift_right);
                             break;
                         case 2:
                             DownClick(findViewById(R.id.downArrow));
+                            shift_anime = AnimationUtils.loadAnimation(context, R.anim.shift_down);
                             break;
                         case 3:
                             LeftClick(findViewById(R.id.leftArrow));
+                            shift_anime = AnimationUtils.loadAnimation(context, R.anim.shift_left);
                             break;
                         default:
                             UpClick(findViewById(R.id.upArrow));
+                            shift_anime = AnimationUtils.loadAnimation(context, R.anim.shift_up);
                             break;
                     }
                     try {
@@ -476,7 +484,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
             @Override
             protected void onProgressUpdate(Void...values){
-                shift_anime = AnimationUtils.loadAnimation(context, R.anim.shift_down);
                 move_sound.start();
                 setArrView(arr, arrView, true);
             }

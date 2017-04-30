@@ -14,22 +14,22 @@
             android:id="@+id/scoreText"
             android:layout_width="50sp"
             android:layout_height="20sp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="20dp"
-            android:layout_toStartOf="@+id/scoreValue"
+            android:layout_marginTop="5dp"
             android:background="@drawable/rect"
-            android:text="@string/score" />
+            android:text="@string/score"
+            android:textSize="@dimen/font_size"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/scoreValue" />
 
         <TextView
             android:id="@+id/scoreValue"
             android:layout_width="115sp"
             android:layout_height="20sp"
-            android:layout_alignBaseline="@+id/scoreText"
-            android:layout_alignBottom="@+id/scoreText"
-            android:layout_alignEnd="@+id/rightArrow"
             android:background="@drawable/rect"
             android:text="@string/zero"
-            android:textAlignment="textEnd" />
+            android:textAlignment="textEnd"
+            android:layout_alignTop="@+id/scoreText"
+            android:layout_toEndOf="@+id/highScoreText" />
 
         <ImageButton
             android:id="@+id/upArrow"
@@ -51,7 +51,8 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/down_arrow"
             android:onClick="DownClick"
-            android:src="@drawable/down_arrow" />
+            android:src="@drawable/down_arrow"
+            android:layout_marginBottom="8dp"/>
 
         <ImageButton
             android:id="@+id/leftArrow"
@@ -94,7 +95,7 @@
             android:layout_height="160dp"
             android:layout_alignStart="@+id/scoreText"
             android:layout_below="@+id/scoreText"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="50dp"
             tools:layout="@layout/fragment_main" />
 
         <TextView
@@ -105,18 +106,18 @@
             android:layout_marginTop="20dp"
             android:layout_toStartOf="@+id/highScoreValue"
             android:background="@drawable/rect"
-            android:text="@string/high_score" />
+            android:text="@string/high_score"
+            android:textSize="@dimen/font_size"/>
 
         <TextView
             android:id="@+id/highScoreValue"
             android:layout_width="115sp"
             android:layout_height="30sp"
-            android:layout_alignBaseline="@+id/highScoreText"
-            android:layout_alignBottom="@+id/highScoreText"
-            android:layout_alignEnd="@+id/rightArrow"
             android:background="@drawable/rect"
             android:text="@string/zero"
-            android:textAlignment="textEnd" />
+            android:textAlignment="textEnd"
+            android:layout_below="@+id/scoreText"
+            android:layout_alignEnd="@+id/rightArrow" />
 
         <Button
             android:id="@+id/demoButton"
