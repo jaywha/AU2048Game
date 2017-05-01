@@ -1,0 +1,46 @@
+@startuml
+ * title AU2048 Reset Button Sequence Diagram
+ *
+ * actor User
+ * entity MainActivity as MA
+ * control Controller as C
+ * entity MainActivityFragment as MAF
+ * participant BoardView as BV
+ * database Model as M
+ *
+ * create MA
+ * User -> MA : Starts App
+ * create C
+ * activate MA
+ * MA -> C : onCreate()
+ * activate C
+ * create MAF
+ * MA -> MAF : onCreate()
+ * activate MAF
+ * create BV
+ * MAF -> BV : onCreateView()
+ * activate BV
+ *
+ * loop watntstoContinue == true
+ * User ->MA: Press Reset
+ * MA-> C: ResetClick(View)
+ * C->C: reset()
+ * C -> M : setArr()
+ * C -> M : setScore()
+ * M --> C : doesWantToContinue()
+ * MA -> MAF : setupArrView()
+ * MA -> MAF : setArrView()
+ * MAF -> BV : onCreateView()
+ * BV --> MAF : BoardView
+ *
+ * deactivate BV
+ * deactivate MAF
+ * deactivate C
+ * end play
+ * BV <- MAF : onDestroy()
+ * destroy BV
+ * MA -> MAF : onDestroy()
+ * destroy MAF
+ * deactivate MA
+ * destroy MA
+ @enduml

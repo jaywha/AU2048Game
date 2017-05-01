@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 public class SwipeListener extends GestureDetector.SimpleOnGestureListener {
 
     @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityZ, float velocityY)
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
     {
         float x1 = e1.getX();
         float y1 = e1.getY();
