@@ -1,6 +1,8 @@
 package comp3710.aj.au2048game;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -633,6 +635,12 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             control.data.setSound(true);
             move_sound = MediaPlayer.create(this, R.raw.pop);
             sound_icon.setImageResource(R.drawable.sound_on);
+        }
+    }
+    public void AboutClick(View v){
+        if(v.getId() == R.id.aboutButton)
+        {
+           control.about();
         }
     }
 

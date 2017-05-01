@@ -258,6 +258,18 @@ class Controller {
 
 
     }
+    void about(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(data.getModelActivity());
+        builder.setMessage("Authors:\nJay Whaley and Adam McCarthy \n\nOur take on the 2048 game developed for COMP3710 in Spring 2017 semester at Auburn University");
+
+        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked close button, continue the game
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
     void reset(){
         data.setArr(new int[4][4]);
         data.setScore(0);

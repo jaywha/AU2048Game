@@ -134,6 +134,15 @@
             android:layout_centerHorizontal="true"
             android:text="Start Demo Mode" />
 
+        <Button
+            android:id="@+id/aboutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="About"
+            android:onClick="AboutClick"/>
+
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
