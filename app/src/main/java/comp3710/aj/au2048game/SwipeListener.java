@@ -4,6 +4,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 /**
+ * Interprets swipe directions into game direction.
  * Created by AJ on 4/30/2017.
  */
 

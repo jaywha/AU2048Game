@@ -14,6 +14,7 @@ class Model {
     private Random rand;
     private Activity activity;
     private boolean wantsToContinue;
+    private boolean sound_on = true;
 
     public Model() {
         wantsToContinue = true;
@@ -57,5 +58,13 @@ class Model {
 
     public void setWantsToContinue(boolean boolin) {
         wantsToContinue = boolin;
+    }
+
+    public boolean getSound() {
+        return sound_on;
+    }
+
+    public void setSound(boolean SoundIn) {
+        sound_on = SoundIn;
     }
 }

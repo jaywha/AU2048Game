@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.MotionEvent;
@@ -23,14 +24,14 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Main file for AU2048Game (Project 2 and Final(?))
+/** Main file for AU2048Game Final
  *
  * @author AJ McCarthy
  * @author Jay Whaley
  * @version 04-18-2017
  *
  * @startuml
+ * title AU2048 Class Diagram
  * class MainActivity extends AppCompatActivity
  *  'variables
  *  MainActivity : ~control : Controller
@@ -64,17 +65,10 @@ import java.util.List;
  *
  * class Controller
  * 'variables
- *  Controller : -arr : int[][]
- *  Controller : -score : int
- *  Controller : -rand : Random
- *  Controller : ~activity : Activity
+ *  Controller : +data : Model
  *
  * 'methods
  *  Controller : +Controller(Context) : Controller
- *  Controller : +getArr() : int[][]
- *  Controller : +getScore() : int
- *  Controller : +setArr(int[][]) : void
- *  Controller : +setScore(int) : void
  *  Controller : +shiftUp() : void
  *  Controller : +shiftLeft() : void
  *  Controller : +shiftDown() : void
@@ -88,9 +82,196 @@ import java.util.List;
  *
  * 'end Controller
  *
+ * class Model
+ * 'variables
+ *  Model : -arr : int[][]
+ *  Model : -score : int
+ *  Model : -rand : Random
+ *  Model : ~activity : Activity
+ *
+ * 'methods
+ *  Model : +Model() : Model
+ *  Model : +getArr() : int[][]
+ *  Model : +getScore() : int
+ *  Model : +setArr(int[][]) : void
+ *  Model : +setScore(int) : void
+ *  Model : +getRand() : Random
+ *  Model : +setRand(Random) : void
+ *  Model : ~getModelActivity() : Activity
+ *  Model : setActivity(Activity): void
+ *  Model : +doesWantToContinue() : boolean
+ *  Model : +setWantsToContinue(boolean) : void
+ * 'end Model
+ *
+ * class SwipeListener
+ * 'variables
+ *
+ * 'methods
+ * SwipeListener : +onFling(MotionEvent, MotionEvent, float, float) : boolean
+ * SwipeListener : +onSwipe(Direction) : boolean
+ * SwipeListener : +getDirection(float, float, float, float) : Direction
+ * SwipeListener : +getAngle(float, float, float, float) : double
+ * 'end SwipeListener
+ *
+ * enum Direction
+ * Direction : up
+ * Direction : down
+ * Direction : left
+ * Direction : right
+ * 'end Direction
+ *
  * Controller - MainActivity : drives >
  * MainActivity - MainActivityFragment : has >
+ * Model - Controller : < Uses
+ * MainActivity - SwipeListener : > Uses
+ * Direction - SwipeListener : contains <
  * @enduml
+ *
+ * @startuml
+ * title AU2048 Swipe Sequence Diagram
+ *
+ * actor User
+ * boundary SwipeListener as SL
+ * entity MainActivity as MA
+ * control Controller as C
+ * entity MainActivityFragment as MAF
+ * participant BoardView as BV
+ * database Model as M
+ *
+ * create MA
+ * User -> MA : Starts App
+ * create C
+ * activate MA
+ * MA -> C : onCreate()
+ * activate C
+ * create MAF
+ * MA -> MAF : onCreate()
+ * activate MAF
+ * create BV
+ * MAF -> BV : onCreateView()
+ * activate BV
+ *
+ * loop watntstoContinue == true
+ * create SL
+ * User -> SL : Swipe
+ * SL -> MA : GestureDetector.Direction
+ * MA -> C : onSwipe(Direction)
+ * C -> M : setArr()
+ * C -> M : setScore()
+ * M --> C : doesWantToContinue()
+ * MA -> MAF : setupArrView()
+ * MA -> MAF : setArrView()
+ *
+ * alt noMovesPossible && past2048
+ * C --> MA : checkWin()
+ * C --> MA : win()
+ * alt dialogChoice == reset
+ * C -> MA : reset()
+ * else dialogChoice == continue
+ * note left
+ *  reset like reset button
+ *  or simply continue loop
+ * end note
+ * end alt
+ * else noMovesPossible && !past2048
+ * C --> MA : noMovesPossible()
+ * C --> MA : gameover()
+ * User -> MA : Presses Reset
+ * MA -> C : Action.DOWN
+ * C --> MA : reset()
+ * end alt
+ * deactivate BV
+ * deactivate MAF
+ * deactivate C
+ * end play
+ * BV <- MAF : onDestroy()
+ * destroy BV
+ * MA -> MAF : onDestroy()
+ * destroy MAF
+ * deactivate MA
+ * destroy MA
+ * @enduml
+ * 
+ * @startuml
+ * title AU2048 Touch-Input Sequence Diagram
+ *
+ * actor User
+ * entity MainActivity as MA
+ * control Controller as C
+ * entity MainActivityFragment as MAF
+ * participant BoardView as BV
+ * database Model as M
+ *
+ * create MA
+ * User -> MA : Starts App
+ * create C
+ * activate MA
+ * MA -> C : onCreate()
+ * activate C
+ * create MAF
+ * MA -> MAF : onCreate()
+ * activate MAF
+ * create BV
+ * MAF -> BV : onCreateView()
+ * activate BV
+ *
+ * loop watntstoContinue == true
+ * alt button_direction == up
+ * MA -> MA : UpClick(View)
+ * else button_direction == left
+ * MA -> MA : LeftClick(View)
+ * else button_direction == down
+ * MA -> MA : DownClick(View)
+ * else button_direction == right
+ * MA -> MA : RightClick(View)
+ * end alt
+ * alt button_direction == up
+ * C -> C : shiftUp()
+ * else button_direction == left
+ * C -> C : shiftLeft()
+ * else button_direction == down
+ * C -> C : shiftDown()
+ * else button_direction == right
+ * C -> C : shiftRight()
+ * end alt
+ * C -> M : setArr()
+ * C -> M : setScore()
+ * M --> C : doesWantToContinue()
+ * MA -> MAF : setupArrView()
+ * MA -> MAF : setArrView()
+ * MAF -> BV : onCreateView()
+ * BV --> MAF : BoardView
+ *
+ * alt noMovesPossible && past2048
+ * C --> MA : checkWin()
+ * C --> MA : win()
+ * alt dialogChoice == reset
+ * C -> MA : reset()
+ * else dialogChoice == continue
+ * note left
+ *  reset like reset button
+ *  or simply continue loop
+ * end note
+ * end alt
+ * else noMovesPossible && !past2048
+ * C --> MA : noMovesPossible()
+ * C --> MA : gameover()
+ * User -> MA : Presses Reset
+ * MA -> C : Action.DOWN
+ * C --> MA : reset()
+ * end alt
+ * deactivate BV
+ * deactivate MAF
+ * deactivate C
+ * end play
+ * BV <- MAF : onDestroy()
+ * destroy BV
+ * MA -> MAF : onDestroy()
+ * destroy MAF
+ * deactivate MA
+ * destroy MA
+ * @enduml
+ *
  * */
 
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
@@ -108,6 +289,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private Random demoRand;
     private Context context;
     private GestureDetector detector;
+    private ImageView sound_icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,8 +322,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         view = findViewById(android.R.id.content);
         view.setOnTouchListener(this);
 
-
-
+        sound_icon = (ImageView) findViewById(R.id.sound_button);
 
         List<Integer> arrBoard = new ArrayList<>();
         SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(this);
@@ -213,52 +394,52 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             for(int j = 0; j < 4; j++) {
                 switch(arr[i][j]) {
                     case 2:
-                        arrView[4*i+j].setImageResource(R.drawable.tile2);
                         if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
+                        arrView[4*i+j].setImageResource(R.drawable.tile2);
                         break;
                     case 4:
-                        arrView[4*i+j].setImageResource(R.drawable.tile4);
                         if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
+                        arrView[4*i+j].setImageResource(R.drawable.tile4);
                         break;
                     case 8:
-                        arrView[4*i+j].setImageResource(R.drawable.tile8);
                         if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
+                        arrView[4*i+j].setImageResource(R.drawable.tile8);
                         break;
                     case 16:
-                        arrView[4*i+j].setImageResource(R.drawable.tile16);
                         if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
+                        arrView[4*i+j].setImageResource(R.drawable.tile16);
                         break;
                     case 32:
-                        arrView[4*i+j].setImageResource(R.drawable.tile32);
                         if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
+                        arrView[4*i+j].setImageResource(R.drawable.tile32);
                         break;
                     case 64:
-                        arrView[4*i+j].setImageResource(R.drawable.tile64);
                         if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
+                        arrView[4*i+j].setImageResource(R.drawable.tile64);
                         break;
                     case 128:
-                        arrView[4*i+j].setImageResource(R.drawable.tile128);
                         if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
+                        arrView[4*i+j].setImageResource(R.drawable.tile128);
                         break;
                     case 256:
-                        arrView[4*i+j].setImageResource(R.drawable.tile256);
                         if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
+                        arrView[4*i+j].setImageResource(R.drawable.tile256);
                         break;
                     case 512:
-                        arrView[4*i+j].setImageResource(R.drawable.tile512);
                         if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
+                        arrView[4*i+j].setImageResource(R.drawable.tile512);
                         break;
                     case 1024:
-                        arrView[4*i+j].setImageResource(R.drawable.tile1024);
                         if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
+                        arrView[4*i+j].setImageResource(R.drawable.tile1024);
                         break;
                     case 2048:
-                        arrView[4*i+j].setImageResource(R.drawable.tile2048);
                         if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
+                        arrView[4*i+j].setImageResource(R.drawable.tile2048);
                         break;
                     case 4096:
-                        arrView[4*i+j].setImageResource(R.drawable.tile4096);
                         if(applyAnime) arrView[4*i+j].startAnimation(shift_anime);
+                        arrView[4*i+j].setImageResource(R.drawable.tile4096);
                         break;
                     default:
                         arrView[4*i+j].setImageResource(R.drawable.rect);
@@ -312,6 +493,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     demo=false;
                 else
                     control.gameOver();
+                    setArrView(arr, arrView, false);
             }
 
         }
@@ -345,6 +527,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     demo=false;
                 else
                     control.gameOver();
+                    setArrView(arr, arrView, false);
             }
         }
 
@@ -377,6 +560,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     demo=false;
                 else
                     control.gameOver();
+                    setArrView(arr, arrView, false);
             }
         }
 
@@ -409,6 +593,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     demo=false;
                 else
                     control.gameOver();
+                    setArrView(arr, arrView, false);
             }
 
         }
@@ -436,6 +621,19 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             new demo().execute("");
         }
     }
+
+    public void SoundClick(View v) {
+        if(v.getId() == R.id.sound_button && control.data.getSound()) {
+            move_sound = MediaPlayer.create(this, R.raw.mute);
+            control.data.setSound(false);
+            sound_icon.setImageResource(R.drawable.sound_off);
+        } else {
+            control.data.setSound(true);
+            move_sound = MediaPlayer.create(this, R.raw.pop);
+            sound_icon.setImageResource(R.drawable.sound_on);
+        }
+    }
+
     private class demo extends AsyncTask<String, Void, Void>{
 
         @Override

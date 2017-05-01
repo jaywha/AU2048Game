@@ -8,6 +8,6 @@ class BoardView extends View {
     public BoardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        //TODO: Get Sound and other things for Final
+        //Placeholder Class for Fragment
     }
 }
