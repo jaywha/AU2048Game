@@ -1,30 +1,28 @@
 package comp3710.aj.au2048game;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageSwitcher;
+import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.view.MotionEvent;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
-import java.util.Random;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /** Main file for AU2048Game Final
  *
@@ -75,7 +73,7 @@ import java.util.List;
  *  Controller : +shiftLeft() : void
  *  Controller : +shiftDown() : void
  *  Controller : +shiftRight() : void
- *  Controller : +addNewNumber() : void
+ *  Controller : -addNewNumber() : void
  *  Controller : +noMovesPossible() : boolean
  *  Controller : +gameOver() : void
  *  Controller : +checkWin() : boolean
@@ -89,20 +87,22 @@ import java.util.List;
  *  Model : -arr : int[][]
  *  Model : -score : int
  *  Model : -rand : Random
- *  Model : ~activity : Activity
+ *  Model : -activity : Activity
+ *  Model : -wantsToContinue : boolean
+ *  Model : -sound_on : boolean
  *
  * 'methods
- *  Model : +Model() : Model
- *  Model : +getArr() : int[][]
- *  Model : +getScore() : int
- *  Model : +setArr(int[][]) : void
- *  Model : +setScore(int) : void
- *  Model : +getRand() : Random
- *  Model : +setRand(Random) : void
+ *  Model : ~Model() : Model
+ *  Model : ~getArr() : int[][]
+ *  Model : ~getScore() : int
+ *  Model : ~setArr(int[][]) : void
+ *  Model : ~setScore(int) : void
+ *  Model : ~getRand() : Random
+ *  Model : ~setRand(Random) : void
  *  Model : ~getModelActivity() : Activity
- *  Model : setActivity(Activity): void
- *  Model : +doesWantToContinue() : boolean
- *  Model : +setWantsToContinue(boolean) : void
+ *  Model : ~setActivity(Activity): void
+ *  Model : ~doesWantToContinue() : boolean
+ *  Model : ~setWantsToContinue(boolean) : void
  * 'end Model
  *
  * class SwipeListener
@@ -290,7 +290,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private Animation shift_anime;
     private MediaPlayer move_sound;
     private boolean demo;
-    private Random demoRand;
     private Context context;
     private GestureDetector detector;
     private ImageView sound_icon;
@@ -351,10 +350,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         else
             arr = new int[4][4];
         score = pref.getInt("score",0);
-        scoreText.setText(score.toString());
+        scoreText.setText(String.format(score.toString(), "#########"));
         past2048 = pref.getBoolean("past2048", true);
         highScore = pref.getInt("highScore", 0);
-        highScoreText.setText(highScore.toString());
+        highScoreText.setText(String.format(highScore.toString(), "#########"));
         edit.apply();
         control.data.setArr(arr);
         move_sound =  MediaPlayer.create(this, R.raw.pop);
@@ -390,8 +389,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     private void setArrView(int[][] arr, ImageView[] arrView, boolean applyAnime) {
+        // Apply animation "fixes"
         if(shift_anime != null && shift_anime.isInitialized()) {
-            shift_anime.setDuration(3000);
+            Interpolator i = new AccelerateInterpolator();
+            shift_anime.setInterpolator(i);
         }
         setupArrView(arrView);
         for(int i = 0; i < 4; i++) {
@@ -480,11 +481,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             arr = control.data.getArr();
             score = control.data.getScore();
             if(!demo)
-                scoreText.setText(score.toString());
+                scoreText.setText(String.format(score.toString(), "#########"));
             if(score>highScore)
                 highScore=score;
             if(!demo)
-                highScoreText.setText(highScore.toString());
+                highScoreText.setText(String.format(highScore.toString(), "#########"));
             //draw onto fragment with updated array
             if(control.checkWin() && past2048) {
                 if(demo)
@@ -514,11 +515,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             arr = control.data.getArr();
             score = control.data.getScore();
             if(!demo)
-                scoreText.setText(score.toString());
+                scoreText.setText(String.format(score.toString(), "#########"));
             if(score>highScore)
                 highScore=score;
             if(!demo)
-                highScoreText.setText(highScore.toString());
+                highScoreText.setText(String.format(highScore.toString(), "#########"));
             //draw onto fragment with updated array
             if(control.checkWin() && past2048) {
                 if(demo)
@@ -547,11 +548,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             arr = control.data.getArr();
             score = control.data.getScore();
             if(!demo)
-                scoreText.setText(score.toString());
+                scoreText.setText(String.format(score.toString(), "#########"));
             if(score>highScore)
                 highScore=score;
             if(!demo)
-                highScoreText.setText(highScore.toString());
+                highScoreText.setText(String.format(highScore.toString(), "#########"));
             //draw onto fragment with updated array
             if(control.checkWin() && past2048) {
                 if(demo)
@@ -580,11 +581,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             arr = control.data.getArr();
             score = control.data.getScore();
             if(!demo)
-                scoreText.setText(score.toString());
+                scoreText.setText(String.format(score.toString(), "#########"));
             if(score>highScore)
                 highScore=score;
             if(!demo)
-                highScoreText.setText(highScore.toString());
+                highScoreText.setText(String.format(highScore.toString(), "#########"));
             //draw onto fragment with updated array
             if(control.checkWin() && past2048) {
                 if(demo)
@@ -614,7 +615,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             arr = control.data.getArr();
             score = 0;
             past2048 = true;
-            scoreText.setText(score.toString());
+            scoreText.setText(String.format(score.toString(), "#########"));
             //draw onto fragment with updated array
         }
 
@@ -649,7 +650,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         @Override
         protected Void doInBackground(String... params){
 
-                demoRand = new Random();
+            Random demoRand = new Random();
                 control.reset();
                 int direction;
                 demo=true;

@@ -10,4 +10,8 @@
     <string name="restart">RESTART</string>
     <string name="restart_game_button">Restart Game button</string>
     <string name="high_score">Highscore:</string>
+    <string name="tile">tile</string>
+    <string name="sound_icon">Sound Icon</string>
+    <string name="start_demo_mode">Start Demo Mode</string>
+    <string name="about">About</string>
 </resources>

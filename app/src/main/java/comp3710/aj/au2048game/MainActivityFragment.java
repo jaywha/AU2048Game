@@ -13,9 +13,7 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState){
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.boardfragment_main, container, false);
-
-        return view;
+        return inflater.inflate(R.layout.boardfragment_main, container, false);
     }
 
     @Override

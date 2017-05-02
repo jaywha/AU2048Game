@@ -1,79 +1,79 @@
-* @startuml
- * title AU2048 Touch-Input Sequence Diagram
- *
- * actor User
- * entity MainActivity as MA
- * control Controller as C
- * entity MainActivityFragment as MAF
- * participant BoardView as BV
- * database Model as M
- *
- * create MA
- * User -> MA : Starts App
- * create C
- * activate MA
- * MA -> C : onCreate()
- * activate C
- * create MAF
- * MA -> MAF : onCreate()
- * activate MAF
- * create BV
- * MAF -> BV : onCreateView()
- * activate BV
- *
- * loop watntstoContinue == true
- * alt button_direction == up
- * MA -> MA : UpClick(View)
- * else button_direction == left
- * MA -> MA : LeftClick(View)
- * else button_direction == down
- * MA -> MA : DownClick(View)
- * else button_direction == right
- * MA -> MA : RightClick(View)
- * end alt
- * alt button_direction == up
- * C -> C : shiftUp()
- * else button_direction == left
- * C -> C : shiftLeft()
- * else button_direction == down
- * C -> C : shiftDown()
- * else button_direction == right
- * C -> C : shiftRight()
- * end alt
- * C -> M : setArr()
- * C -> M : setScore()
- * M --> C : doesWantToContinue()
- * MA -> MAF : setupArrView()
- * MA -> MAF : setArrView()
- * MAF -> BV : onCreateView()
- * BV --> MAF : BoardView
- *
- * alt noMovesPossible && past2048
- * C --> MA : checkWin()
- * C --> MA : win()
- * alt dialogChoice == reset
- * C -> MA : reset()
- * else dialogChoice == continue
- * note left
- *  reset like reset button
- *  or simply continue loop
- * end note
- * end alt
- * else noMovesPossible && !past2048
- * C --> MA : noMovesPossible()
- * C --> MA : gameover()
- * User -> MA : Presses Reset
- * MA -> C : Action.DOWN
- * C --> MA : reset()
- * end alt
- * deactivate BV
- * deactivate MAF
- * deactivate C
- * end play
- * BV <- MAF : onDestroy()
- * destroy BV
- * MA -> MAF : onDestroy()
- * destroy MAF
- * deactivate MA
- * destroy MA
- * @enduml
+ @startuml
+  title AU2048 Touch-Input Sequence Diagram
+ 
+  actor User
+  entity MainActivity as MA
+  control Controller as C
+  entity MainActivityFragment as MAF
+  participant BoardView as BV
+  database Model as M
+ 
+  create MA
+  User -> MA : Starts App
+  create C
+  activate MA
+  MA -> C : onCreate()
+  activate C
+  create MAF
+  MA -> MAF : onCreate()
+  activate MAF
+  create BV
+  MAF -> BV : onCreateView()
+  activate BV
+ 
+  loop watntstoContinue == true
+  alt button_direction == up
+  MA -> MA : UpClick(View)
+  else button_direction == left
+  MA -> MA : LeftClick(View)
+  else button_direction == down
+  MA -> MA : DownClick(View)
+  else button_direction == right
+  MA -> MA : RightClick(View)
+  end alt
+  alt button_direction == up
+  C -> C : shiftUp()
+  else button_direction == left
+  C -> C : shiftLeft()
+  else button_direction == down
+  C -> C : shiftDown()
+  else button_direction == right
+  C -> C : shiftRight()
+  end alt
+  C -> M : setArr()
+  C -> M : setScore()
+  M --> C : doesWantToContinue()
+  MA -> MAF : setupArrView()
+  MA -> MAF : setArrView()
+  MAF -> BV : onCreateView()
+  BV --> MAF : BoardView
+ 
+  alt noMovesPossible && past2048
+  C --> MA : checkWin()
+  C --> MA : win()
+  alt dialogChoice == reset
+  C -> MA : reset()
+  else dialogChoice == continue
+  note left
+   reset like reset button
+   or simply continue loop
+  end note
+  end alt
+  else noMovesPossible && !past2048
+  C --> MA : noMovesPossible()
+  C --> MA : gameover()
+  User -> MA : Presses Reset
+  MA -> C : Action.DOWN
+  C --> MA : reset()
+  end alt
+  deactivate BV
+  deactivate MAF
+  deactivate C
+  end play
+  BV <- MAF : onDestroy()
+  destroy BV
+  MA -> MAF : onDestroy()
+  destroy MAF
+  deactivate MA
+  destroy MA
+  @enduml

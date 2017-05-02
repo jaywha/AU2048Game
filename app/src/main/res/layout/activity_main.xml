@@ -14,7 +14,8 @@
             android:layout_height="@dimen/button_dim"
             android:background="@drawable/sound_on"
             android:id="@+id/sound_button"
-            android:onClick="SoundClick"/>
+            android:onClick="SoundClick"
+            android:contentDescription="@string/sound_icon"/>
 
         <TextView
             android:id="@+id/scoreText"
@@ -132,15 +133,15 @@
             android:onClick="DemoClick"
             android:layout_below="@+id/downArrow"
             android:layout_centerHorizontal="true"
-            android:text="Start Demo Mode" />
+            android:text="@string/start_demo_mode" />
 
         <Button
             android:id="@+id/aboutButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="75dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:text="About"
+            android:text="@string/about"
             android:onClick="AboutClick"/>
 
     </RelativeLayout>

@@ -8,12 +8,6 @@ import android.content.DialogInterface;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static java.lang.Thread.sleep;
-
-import java.util.ArrayList;
-import java.util.Random;
-import static java.lang.Thread.sleep;
-
 
 class Controller {
     public Model data = new Model();
@@ -150,7 +144,7 @@ class Controller {
 
     }
 
-    void addNewNumber(){
+    private void addNewNumber(){
         int current=0;
         ArrayList<Integer> empty;
         empty = new ArrayList<>();
@@ -189,20 +183,12 @@ class Controller {
             for(int i=0; i<4; i++)
                 for(int j=0; j<4; j++)
                 {
-                    if(i==3 && j==3)
-                        continue;
-                    else if(i==3){
-                        if(j==3)
-                            continue;
-                        else
+                    if(i==3 && j!=3){
                         if(data.getArr()[i][j] == data.getArr()[i][j+1])
                             return false;
 
                     }
-                    else if(j==3){
-                        if(i==3)
-                            continue;
-                        else
+                    else if(j==3 && i!=3){
                         if(data.getArr()[i][j] == data.getArr()[i+1][j])
                             return false;
                     }

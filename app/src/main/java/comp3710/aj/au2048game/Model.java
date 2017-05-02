@@ -16,31 +16,31 @@ class Model {
     private boolean wantsToContinue;
     private boolean sound_on = true;
 
-    public Model() {
+    Model() {
         wantsToContinue = true;
     }
 
-    public int[][] getArr() {
+    int[][] getArr() {
         return arr;
     }
 
-    public void setArr(int[][] inArr) {
+    void setArr(int[][] inArr) {
         arr = inArr;
     }
 
-    public int getScore() {
+    int getScore() {
         return score;
     }
 
-    public void setScore(int scoreIn) {
+    void setScore(int scoreIn) {
         score = scoreIn;
     }
 
-    public Random getRand() {
+    Random getRand() {
         return rand;
     }
 
-    public void setRand(Random randIn) {
+    void setRand(Random randIn) {
         rand = randIn;
     }
 
@@ -48,23 +48,23 @@ class Model {
         return activity;
     }
 
-    public void setActivity(Activity activityIn) {
+    void setActivity(Activity activityIn) {
         activity = activityIn;
     }
 
-    public boolean doesWantToContinue() {
+    boolean doesWantToContinue() {
         return wantsToContinue;
     }
 
-    public void setWantsToContinue(boolean boolin) {
+    void setWantsToContinue(boolean boolin) {
         wantsToContinue = boolin;
     }
 
-    public boolean getSound() {
+    boolean getSound() {
         return sound_on;
     }
 
-    public void setSound(boolean SoundIn) {
+    void setSound(boolean SoundIn) {
         sound_on = SoundIn;
     }
 }

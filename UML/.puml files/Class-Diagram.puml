@@ -1,95 +1,98 @@
-* @startuml
- * class MainActivity extends AppCompatActivity
- *  'variables
- *  MainActivity : ~control : Controller
- *  MainActivity : -score : Integer
- *  MainActivity : -highScore : Integer
- *  MainActivity : -arr : int[][]
- *  MainActivity : -arrView : ImageView[]
- *  MainActivity : ~scoreText : TextView
- *  MainActivity : ~highScoreText : TextView
- *
- *  'methods
- *  MainActivity : #onCreate(Bundle) : void
- *  MainActivity : -setupArrView(ImageView[]) : void
- *  MainActivity : -setArrView(int[][], ImageView[]) : void
- *  MainActivity : +onSaveInstanceState(Bundle) : void
- *  MainActivity : +UpClick(View) : void
- *  MainActivity : +RightClick(View) : void
- *  MainActivity : +DownClick(View) : void
- *  MainActivity : +LeftClick(View) : void
- *  MainActivity : +ResetClick(View) : void
- * 'end MainActivity
- *
- * class MainActivityFragment extends Fragment
- * 'variables
- * 'methods
- * MainActivityFragment : +onCreateView(LayoutInflator, ViewGroup, Bundle) : View
- * MainActivityFragment : +onPause() : void
- * MainActivityFragment : +onDestroy() : void
- *
- * 'end MainActivityFragment
- *
- * class Controller
- * 'variables
- *  Controller : +data : Model
- *
- * 'methods
- *  Controller : +Controller(Context) : Controller
- *  Controller : +shiftUp() : void
- *  Controller : +shiftLeft() : void
- *  Controller : +shiftDown() : void
- *  Controller : +shiftRight() : void
- *  Controller : +addNewNumber() : void
- *  Controller : +noMovesPossible() : boolean
- *  Controller : +gameOver() : void
- *  Controller : +checkWin() : boolean
- *  Controller : +win() : void
- *  Controller : +reset() : void
- *
- * 'end Controller
- *
- * class Model
- * 'variables
- *  Model : -arr : int[][]
- *  Model : -score : int
- *  Model : -rand : Random
- *  Model : ~activity : Activity
- *
- * 'methods
- *  Model : +Model() : Model
- *  Model : +getArr() : int[][]
- *  Model : +getScore() : int
- *  Model : +setArr(int[][]) : void
- *  Model : +setScore(int) : void
- *  Model : +getRand() : Random
- *  Model : +setRand(Random) : void
- *  Model : ~getModelActivity() : Activity
- *  Model : setActivity(Activity): void
- *  Model : +doesWantToContinue() : boolean
- *  Model : +setWantsToContinue(boolean) : void
- * 'end Model
- *
- * class SwipeListener
- * 'variables
- *
- * 'methods
- * SwipeListener : +onFling(MotionEvent, MotionEvent, float, float) : boolean
- * SwipeListener : +onSwipe(Direction) : boolean
- * SwipeListener : +getDirection(float, float, float, float) : Direction
- * SwipeListener : +getAngle(float, float, float, float) : double
- * 'end SwipeListener
- *
- * enum Direction
- * Direction : up
- * Direction : down
- * Direction : left
- * Direction : right
- * 'end Direction
- *
- * Controller - MainActivity : drives >
- * MainActivity - MainActivityFragment : has >
- * Model - Controller : < Uses
- * MainActivity - SwipeListener : > Uses
- * Direction - SwipeListener : contains <
- * @enduml
+ @startuml
+  title AU2048 Class Diagram
+  class MainActivity extends AppCompatActivity
+   'variables
+   MainActivity : ~control : Controller
+   MainActivity : -score : Integer
+   MainActivity : -highScore : Integer
+   MainActivity : -arr : int[][]
+   MainActivity : -arrView : ImageView[]
+   MainActivity : ~scoreText : TextView
+   MainActivity : ~highScoreText : TextView
+ 
+   'methods
+   MainActivity : #onCreate(Bundle) : void
+   MainActivity : -setupArrView(ImageView[]) : void
+   MainActivity : -setArrView(int[][], ImageView[]) : void
+   MainActivity : +onSaveInstanceState(Bundle) : void
+   MainActivity : +UpClick(View) : void
+   MainActivity : +RightClick(View) : void
+   MainActivity : +DownClick(View) : void
+   MainActivity : +LeftClick(View) : void
+   MainActivity : +ResetClick(View) : void
+  'end MainActivity
+ 
+  class MainActivityFragment extends Fragment
+  'variables
+  'methods
+  MainActivityFragment : +onCreateView(LayoutInflator, ViewGroup, Bundle) : View
+  MainActivityFragment : +onPause() : void
+  MainActivityFragment : +onDestroy() : void
+ 
+  'end MainActivityFragment
+ 
+  class Controller
+  'variables
+   Controller : +data : Model
+ 
+  'methods
+   Controller : +Controller(Context) : Controller
+   Controller : +shiftUp() : void
+   Controller : +shiftLeft() : void
+   Controller : +shiftDown() : void
+   Controller : +shiftRight() : void
+   Controller : -addNewNumber() : void
+   Controller : +noMovesPossible() : boolean
+   Controller : +gameOver() : void
+   Controller : +checkWin() : boolean
+   Controller : +win() : void
+   Controller : +reset() : void
+ 
+  'end Controller
+ 
+  class Model
+  'variables
+   Model : -arr : int[][]
+   Model : -score : int
+   Model : -rand : Random
+   Model : -activity : Activity
+   Model : -wantsToContinue : boolean
+   Model : -sound_on : boolean
+ 
+  'methods
+   Model : ~Model() : Model
+   Model : ~getArr() : int[][]
+   Model : ~getScore() : int
+   Model : ~setArr(int[][]) : void
+   Model : ~setScore(int) : void
+   Model : ~getRand() : Random
+   Model : ~setRand(Random) : void
+   Model : ~getModelActivity() : Activity
+   Model : ~setActivity(Activity): void
+   Model : ~doesWantToContinue() : boolean
+   Model : ~setWantsToContinue(boolean) : void
+  'end Model
+ 
+  class SwipeListener
+  'variables
+ 
+  'methods
+  SwipeListener : +onFling(MotionEvent, MotionEvent, float, float) : boolean
+  SwipeListener : +onSwipe(Direction) : boolean
+  SwipeListener : +getDirection(float, float, float, float) : Direction
+  SwipeListener : +getAngle(float, float, float, float) : double
+  'end SwipeListener
+ 
+  enum Direction
+  Direction : up
+  Direction : down
+  Direction : left
+  Direction : right
+  'end Direction
+ 
+  Controller - MainActivity : drives >
+  MainActivity - MainActivityFragment : has >
+  Model - Controller : < Uses
+  MainActivity - SwipeListener : > Uses
+  Direction - SwipeListener : contains <
+  @enduml
